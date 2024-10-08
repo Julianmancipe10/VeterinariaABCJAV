@@ -1,13 +1,12 @@
 package modelo.operaciones;
-
 public class PersonaVO {
     private String nombre;
     private String apellido;
     private String documento;
     private String telefono;
-    private int id;  // Campo id añadido
+    private int id;  
 
-    // Constructor con id
+
     public PersonaVO(int id, String nombre, String apellido, String documento, String telefono) {
         this.id = id;
         this.nombre = nombre;
@@ -16,11 +15,11 @@ public class PersonaVO {
         this.telefono = telefono;
     }
 
-    // Constructor sin id
-    public PersonaVO(String nombre, String apellido, String documento, String telefono) {
+    
+    public PersonaVO(String documento, String nombre, String apellido, String telefono) {
+        this.documento = documento; 
         this.nombre = nombre;
         this.apellido = apellido;
-        this.documento = documento;
         this.telefono = telefono;
     }
 
@@ -71,4 +70,3 @@ public class PersonaVO {
                 + ", telefono=" + telefono + "]";
     }
 }
-

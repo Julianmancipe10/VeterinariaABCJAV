@@ -21,7 +21,7 @@ public class PersonaDAO {
         String sql = "INSERT INTO persona (documento,nombre,telefono) VALUES (?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, persona.getDocumento());
-            String nombreCompleto = persona.getNombre() + " " + persona.getApellido() ;
+            String nombreCompleto = persona.getNombre() + " " + persona.getApellido(); // Concatenamos nombre y apellido
             ps.setString(2, nombreCompleto);
             ps.setString(3, persona.getTelefono());
             ps.executeUpdate();
@@ -37,11 +37,15 @@ public class PersonaDAO {
             ps.setString(1, documento);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
+                String nombreCompleto = rs.getString("nombre");
+                String[] partesNombre = nombreCompleto.split(" ", 2);  // Dividimos el nombre completo en nombre y apellido
+                String nombre = partesNombre.length > 0 ? partesNombre[0] : "";
+                String apellido = partesNombre.length > 1 ? partesNombre[1] : "";
+                
                 persona = new PersonaVO(
-                    rs.getInt("id"),
-                    rs.getString("nombre"),
-                    rs.getString("apellido"),
                     rs.getString("documento"),
+                    nombre,
+                    apellido,
                     rs.getString("telefono")
                 );
             }
@@ -52,12 +56,12 @@ public class PersonaDAO {
     }
 
     public void actualizarPersona(PersonaVO persona) {
-        String sql = "UPDATE persona SET nombre = ?, apellido = ?, telefono = ? WHERE documento = ?";
+        String sql = "UPDATE persona SET nombre = ?, telefono = ? WHERE documento = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, persona.getNombre());
-            ps.setString(2, persona.getApellido());
-            ps.setString(3, persona.getTelefono());
-            ps.setString(4, persona.getDocumento());
+            String nombreCompleto = persona.getNombre() + " " + persona.getApellido();  // Concatenamos nombre y apellido
+            ps.setString(1, nombreCompleto);
+            ps.setString(2, persona.getTelefono());
+            ps.setString(3, persona.getDocumento());
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error al actualizar persona: " + e.getMessage());
@@ -80,11 +84,15 @@ public class PersonaDAO {
         try (PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
+                String nombreCompleto = rs.getString("nombre");
+                String[] partesNombre = nombreCompleto.split(" ", 2);
+                String nombre = partesNombre.length > 0 ? partesNombre[0] : "";
+                String apellido = partesNombre.length > 1 ? partesNombre[1] : "";
+
                 PersonaVO persona = new PersonaVO(
-                    rs.getInt("id"),
-                    rs.getString("nombre"),
-                    rs.getString("apellido"),
                     rs.getString("documento"),
+                    nombre,
+                    apellido,
                     rs.getString("telefono")
                 );
                 listaPersonas.add(persona);

@@ -162,8 +162,6 @@ public class VentanaGestionarPersonas extends JFrame {
 
     private void consultarListaPersonas() {
         String lista = controlador.consultarListaPersonas();
-        textAreaResultados.setText(lista);
+        textAreaResultados.setText("Lista de personas:\n" + lista);
     }
 }
-
-
