@@ -3,16 +3,16 @@ package modelo.operaciones;
 public class MascotaVO {
     private String nombre;
     private String raza;
+    private String sexo;
     private PersonaVO propietario;
 
-   
-    public MascotaVO(String nombre, String raza, PersonaVO propietario) {
-        this.nombre = nombre;
+    public MascotaVO(String nombre, String raza, String sexo, PersonaVO propietario) {
+        this.nombre = nombre;  
         this.raza = raza;
+        this.sexo = sexo; // Asignación del atributo sexo
         this.propietario = propietario;
     }
 
-    
     public String getNombre() {
         return nombre;
     }
@@ -21,7 +21,6 @@ public class MascotaVO {
         this.nombre = nombre;
     }
 
-    
     public String getRaza() {
         return raza;
     }
@@ -30,6 +29,13 @@ public class MascotaVO {
         this.raza = raza;
     }
 
+    public String getSexo() {
+        return sexo; 
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo; 
+    }
 
     public PersonaVO getPropietario() {
         return propietario;
@@ -41,7 +47,7 @@ public class MascotaVO {
 
     @Override
     public String toString() {
-        return "Mascota: " + nombre + ", Raza: " + raza + ", Propietario: " + propietario.getNombre() + " " + propietario.getApellido();
+        return "Mascota: " + nombre + ", Raza: " + raza + ", Sexo: " + sexo + ", Propietario: " + propietario.getNombre(); // Asegúrate de que PersonaVO tenga un método getNombre()
     }
 }
 
